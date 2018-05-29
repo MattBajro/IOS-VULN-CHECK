@@ -56,7 +56,6 @@ coverage.xml
 local_settings.py
 db.sqlite3
 device_list2.csv
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -161,4 +160,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
->>>>>>> 06d120f9bb32820b65fb42fd5a9a7c56e381c29e
