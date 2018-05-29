@@ -56,6 +56,10 @@ coverage.xml
 local_settings.py
 db.sqlite3
 device_list2.csv
+credentials.json
+bin/
+include/
+local/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
