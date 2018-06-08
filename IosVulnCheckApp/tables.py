@@ -13,11 +13,6 @@ class CiscoDeviceTable(tables.Table):
         return '%s' % (len(value.all()))
 
 
-class CiscoFDeviceTable(tables.Table):
-    class Meta:
-        model = CiscoDevice
-        template_name = 'django_tables2/bootstrap.html'
-
 class VulnDeviceTable(tables.Table):
     cisco_id = tables.LinkColumn('vuln-details', args=[A('pk')], orderable=True)
     severity = tables.Column(orderable=True)

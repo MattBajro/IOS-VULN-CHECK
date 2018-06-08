@@ -10,34 +10,19 @@ from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 
 from .models import CiscoDevice
-from .tables import CiscoDeviceTable, CiscoFDeviceTable, VulnDeviceTable
+from .tables import CiscoDeviceTable, VulnDeviceTable
 from .filters import CiscoDeviceFilter
 
 def index(request):
     return HttpResponse("Hello, world. This is VulnCheckApp index.")
 
 
-def device_table(request):
-    table = CiscoDeviceTable(
-        data=CiscoDevice.objects.all(),
-        orderable=True,
-        order_by='device_name',
-        template_name='django_tables2/bootstrap.html'
-    )
-    RequestConfig(request, paginate={'per_page': 25}).configure(table)
-
-    return render(
-        request,
-        'IosVulnCheckApp/devicetable.html',
-        {'table' : table}
-    )
-
-
 class FilteredCiscoListView(SingleTableMixin, FilterView):
     table_class = CiscoDeviceTable
+    table_data = CiscoDevice.objects.all().order_by('device_name')
     paginate_by = 20
     model = CiscoDevice
-    template_name = 'IosVulnCheckApp/filterdevicetable.html'
+    template_name = 'IosVulnCheckApp/devicetable.html'
 
     filterset_class = CiscoDeviceFilter
 
