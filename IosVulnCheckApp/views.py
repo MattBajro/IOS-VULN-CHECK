@@ -35,6 +35,7 @@ def device_table(request):
 
 class FilteredCiscoListView(SingleTableMixin, FilterView):
     table_class = CiscoDeviceTable
+    paginate_by = 20
     model = CiscoDevice
     template_name = 'IosVulnCheckApp/filterdevicetable.html'
 

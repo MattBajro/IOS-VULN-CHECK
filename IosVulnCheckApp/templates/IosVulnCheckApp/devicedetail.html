@@ -1,29 +1,11 @@
-{# IosVulnCheckApp/templates/IosVulnCheckApp/devicetable.html #}
+{% extends 'IosVulnCheckApp/base.html' %}
 {% load render_table from django_tables2 %}
 {% load bootstrap3 %}
 
-<!doctype html>
-<html>
-<style>
-#hdr {
-	background-color: lightblue
-}
-</style>
-    <head>
-	{% bootstrap_css %}
-        <title>Cisco device detail</title>
-    </head>
-    <body>
-	    <div>
-		<div id="hdr">
-	    	<h2>{{ device.device_name }}</h2>
-		{{ device.ios_version }}
-		<br>
-		{{ device.ios_type }}
-		</div>
-	    	<div>
-        		{% render_table table %}
-	    	</div>
-	    </div>
-    </body>
-</html>
+{% block content %}
+<div style="background-color: #e6f2ff;">
+  <div style="font-size: 26px;">{{ device.device_name }}</div>
+  <div>{{ device.ios_version }} ::: {{ device.ios_type }}</div>
+</div>
+{% render_table table %}
+{% endblock %}

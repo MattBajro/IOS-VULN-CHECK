@@ -1,0 +1,38 @@
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cisco VulnCheck</title>
+		{% bootstrap_css %}
+	</head>
+	<style>
+.device_name {
+	width: 400px;
+}
+#navbar {
+	background-color: #b3d9ff;
+}
+	</style>
+	<body>
+		<nav class="navbar navbar-default" id="navbar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/vulnapp/filter-table">Cisco Vulnerability Checker</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/vulnapp/filter-table">Home</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="content container">
+			<div class="row">
+				<div class="col-md-12">
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

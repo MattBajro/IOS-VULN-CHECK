@@ -2,11 +2,11 @@
 {% load render_table from django_tables2 %}
 {% load bootstrap3 %}
 
-{% bootstrap_css %}
 <!doctype html>
 <html>
     <head>
         <title>List of Cisco devices</title>
+	{% bootstrap_css %}
     </head>
     <body>
         {% render_table table %}
