@@ -11,7 +11,7 @@ import csv
 import re
 
 def main():
-    with open('device_list2.csv', 'rb') as f:
+    with open('device_list3.csv', 'rb') as f:
         reader = csv.reader(f)
         pattern = re.compile(r'(,\sVersion\s)(.*?)([, ])', re.I)
         pattern2 = re.compile(r'ios.xe', re.I)

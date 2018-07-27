@@ -1,0 +1,17 @@
+{% extends 'IosVulnCheckApp/base.html' %}
+{% load render_table from django_tables2 %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div style="background-color: #e6f2ff;">
+  <div style="font-size: 26px;">{{ vuln.title }}</div>
+  <div>
+    <span>{{ vuln.cisco_id }} ::: </span>
+    <span style="color: #0748fc; font-size: 16px; font-weight: bold;">{{ vuln.severity }}</span>
+  </div>
+</div>
+<div style="border: 1px solid; border-radius: 5px; padding: 10px; margin-top: 20px;">
+  {{ vuln.description | safe }}
+</div>
+{% render_table table %}
+{% endblock %}

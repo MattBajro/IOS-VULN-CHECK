@@ -13,7 +13,7 @@ class CiscoDeviceTable(tables.Table):
         return '%s' % (len(value.all()))
 
 
-class VulnDeviceTable(tables.Table):
+class VulnerabilityTable(tables.Table):
     cisco_id = tables.LinkColumn('vuln-details', args=[A('pk')], orderable=True)
     severity = tables.Column(orderable=True)
     url = tables.Column(orderable=True)

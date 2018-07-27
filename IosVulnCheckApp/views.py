@@ -8,18 +8,18 @@ from django.http import HttpResponse
 from django_tables2 import RequestConfig
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
+from django.core.exceptions import ObjectDoesNotExist
 
-from .models import CiscoDevice
-from .tables import CiscoDeviceTable, VulnDeviceTable
-from .filters import CiscoDeviceFilter
+from .models import CiscoDevice, IosVulnerability
+from .tables import CiscoDeviceTable, VulnerabilityTable
+from .filters import CiscoDeviceFilter, IosVulnerabilityFilter
 
 def index(request):
     return HttpResponse("Hello, world. This is VulnCheckApp index.")
 
 
-class FilteredCiscoListView(SingleTableMixin, FilterView):
+class FilteredDeviceListView(SingleTableMixin, FilterView):
     table_class = CiscoDeviceTable
-    table_data = CiscoDevice.objects.all().order_by('device_name')
     paginate_by = 20
     model = CiscoDevice
     template_name = 'IosVulnCheckApp/devicetable.html'
@@ -27,9 +27,18 @@ class FilteredCiscoListView(SingleTableMixin, FilterView):
     filterset_class = CiscoDeviceFilter
 
 
+class FilteredVulnListView(SingleTableMixin, FilterView):
+    table_class = VulnerabilityTable
+    paginate_by = 20
+    model = IosVulnerability
+    template_name = 'IosVulnCheckApp/vulntable.html'
+
+    filterset_class = IosVulnerabilityFilter
+
+
 def device_details(request, device_id):
     dev = CiscoDevice.objects.get(pk=device_id)
-    table = VulnDeviceTable(
+    table = VulnerabilityTable(
         data=dev.vulnerabs.all(),
         orderable=True,
         order_by='severity',
@@ -48,4 +57,25 @@ def device_details(request, device_id):
 
 
 def vuln_details(request, vuln_id):
-    return HttpResponse("Hello, world. This is Vuln detail page.")
+    try:
+        vuln = IosVulnerability.objects.get(pk=vuln_id)
+    except ObjectDoesNotExist as e:
+        errmsg = "Vulnerability '{}' was not found in our database.".format(vuln_id) 
+        return HttpResponse(errmsg)
+
+    table = CiscoDeviceTable(
+        data=vuln.ciscodevice_set.all(),
+        orderable=True,
+        order_by='severity',
+        template_name='django_tables2/bootstrap.html'
+    )
+    RequestConfig(request, paginate={'per_page': 25}).configure(table)
+
+    return render(
+        request,
+        'IosVulnCheckApp/vulndetail.html',
+        {
+            'table' : table,
+            'vuln' : vuln
+        }
+    )
