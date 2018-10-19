@@ -60,6 +60,7 @@ credentials.json
 bin/
 include/
 local/
+static/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
