@@ -18,12 +18,13 @@
 		<nav class="navbar navbar-default" id="navbar">
 			<div class="container-fluid">
 				<div class="navbar-header">
-          <a class="navbar-brand" href={% url 'device-table' %}>Cisco Vulnerability Checker</a>
+					<a class="navbar-brand" href={% url 'device-table' %}>Cisco Vulnerability Checker</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href={% url 'device-table' %}>Device Table</a></li>
-          <li><a href={% url 'vuln-table' %}>Vulnerability Table</a></li>
-          <li><a href="#">About</a></li>
+          				<li><a href={% url 'vuln-table' %}>Vulnerability Table</a></li>
+          				<li><a href={% url 'maintenance' %}>Maintenance</a></li>
+          				<li><a href="#">About</a></li>
 				</ul>
 			</div>
 		</nav>

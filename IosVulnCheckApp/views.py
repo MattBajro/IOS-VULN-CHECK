@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import logging
 
 from django.shortcuts import render
 
@@ -13,6 +14,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import CiscoDevice, IosVulnerability
 from .tables import CiscoDeviceTable, VulnerabilityTable
 from .filters import CiscoDeviceFilter, IosVulnerabilityFilter
+from .forms import UpdateDeviceDbForm
+
+logger = logging.getLogger('testlogger')
 
 def index(request):
     return HttpResponse("Hello, world. This is VulnCheckApp index.")
@@ -46,6 +50,8 @@ def device_details(request, device_id):
     )
     RequestConfig(request, paginate={'per_page': 25}).configure(table)
 
+    logger.info('Testing my logging!')
+
     return render(
         request,
         'IosVulnCheckApp/devicedetail.html',
@@ -77,5 +83,34 @@ def vuln_details(request, vuln_id):
         {
             'table' : table,
             'vuln' : vuln
+        }
+    )
+
+
+def maintenance(request):
+
+    if request.method == 'POST':
+        form = UpdateDeviceDbForm(request.POST)
+        if form.is_valid():
+            return render(
+                request,
+                'IosVulnCheckApp/maintenance2.html',
+                {
+                    'form' : form,
+                    'tab' : 'tablet lol',
+                    'vul' : 'vul lol'
+                }
+            )
+    
+    else:
+        form = UpdateDeviceDbForm()
+            
+    return render(
+        request,
+        'IosVulnCheckApp/maintenance.html',
+        {
+            'form' : form,
+            'tab' : 'tablet lol',
+            'vul' : 'vul lol'
         }
     )

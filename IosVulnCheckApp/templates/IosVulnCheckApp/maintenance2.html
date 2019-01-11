@@ -1,0 +1,11 @@
+{% extends 'IosVulnCheckApp/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div>It works like a charm!</div>
+<div>POSTed!</div>
+<form action="/maintenance" method="post">
+	{% csrf_token %}
+	{{ form }}
+	<input type="submit" value="Start Device DB update" />
+{% endblock %}
